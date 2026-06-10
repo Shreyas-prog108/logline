@@ -1,0 +1,7 @@
+{
+  "name": "pitch-engine",
+  "private": true,
+  "scripts": {
+    "run": "bun run.ts"
+  }
+}

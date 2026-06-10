@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pitch Engine</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <div class="bg-glow bg-glow--1"></div>
+  <div class="bg-glow bg-glow--2"></div>
+
+  <main class="app">
+    <header class="header">
+      <div class="logo">
+        <span class="logo__icon">▶</span>
+        <div>
+          <h1>Pitch Engine</h1>
+          <p class="subtitle">Startup idea → stitched pitch video</p>
+        </div>
+      </div>
+    </header>
+
+    <section class="card input-card" id="input-section">
+      <label class="label" for="idea">Your startup idea</label>
+      <textarea
+        id="idea"
+        rows="3"
+        placeholder="e.g. AI copilot that turns customer support tickets into product roadmap priorities"
+      ></textarea>
+
+      <div class="controls">
+        <div class="mode-toggle">
+          <span class="label">Render mode</span>
+          <div class="toggle-group" role="radiogroup">
+            <button type="button" class="toggle-btn active" data-mode="prototype">Prototype</button>
+            <button type="button" class="toggle-btn" data-mode="final">Final</button>
+          </div>
+        </div>
+        <button type="button" class="btn-generate" id="generate-btn">
+          <span class="btn-generate__text">Generate pitch</span>
+          <span class="btn-generate__spinner" hidden></span>
+        </button>
+      </div>
+    </section>
+
+    <section class="card pipeline-card" id="pipeline-section" hidden>
+      <div class="pipeline-header">
+        <h2>Pipeline</h2>
+        <div class="status-badge" id="status-badge">Queued</div>
+      </div>
+
+      <p class="idea-echo" id="idea-echo"></p>
+
+      <ol class="steps" id="steps">
+        <li class="step" data-stage="director">
+          <div class="step__indicator">
+            <div class="step__ring"></div>
+            <div class="step__dot"></div>
+            <svg class="step__check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <div class="step__content">
+            <span class="step__title">Understanding your idea</span>
+            <span class="step__desc">Director agent builds a 3-scene manifest</span>
+            <div class="step__motion">
+              <span></span><span></span><span></span>
+            </div>
+          </div>
+        </li>
+
+        <li class="step" data-stage="image_generation">
+          <div class="step__indicator">
+            <div class="step__ring"></div>
+            <div class="step__dot"></div>
+            <svg class="step__check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <div class="step__content">
+            <span class="step__title">Generating scene visuals</span>
+            <span class="step__desc">Creating still frames for each scene</span>
+            <div class="step__motion step__motion--grid">
+              <span></span><span></span><span></span>
+            </div>
+          </div>
+        </li>
+
+        <li class="step" data-stage="vision_critique">
+          <div class="step__indicator">
+            <div class="step__ring"></div>
+            <div class="step__dot"></div>
+            <svg class="step__check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <div class="step__content">
+            <span class="step__title">Refining motion direction</span>
+            <span class="step__desc">Vision critique aligns prompts with images</span>
+            <div class="step__motion step__motion--scan">
+              <span class="scan-line"></span>
+            </div>
+          </div>
+        </li>
+
+        <li class="step" data-stage="video_generation">
+          <div class="step__indicator">
+            <div class="step__ring"></div>
+            <div class="step__dot"></div>
+            <svg class="step__check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <div class="step__content">
+            <span class="step__title">Rendering video clips</span>
+            <span class="step__desc">Animating each scene with the routed model</span>
+            <div class="step__motion step__motion--film">
+              <span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+        </li>
+
+        <li class="step" data-stage="tts_generation">
+          <div class="step__indicator">
+            <div class="step__ring"></div>
+            <div class="step__dot"></div>
+            <svg class="step__check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <div class="step__content">
+            <span class="step__title">Creating voiceover</span>
+            <span class="step__desc">Synthesizing narration and syncing timing</span>
+            <div class="step__motion step__motion--wave">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+        </li>
+
+        <li class="step" data-stage="stitching">
+          <div class="step__indicator">
+            <div class="step__ring"></div>
+            <div class="step__dot"></div>
+            <svg class="step__check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <div class="step__content">
+            <span class="step__title">Stitching final pitch</span>
+            <span class="step__desc">Merging clips with crossfade transitions</span>
+            <div class="step__motion step__motion--merge">
+              <span></span><span></span><span></span>
+            </div>
+          </div>
+        </li>
+      </ol>
+
+      <div class="error-banner" id="error-banner" hidden></div>
+    </section>
+
+    <section class="card result-card" id="result-section" hidden>
+      <h2>Your pitch video</h2>
+      <div class="video-wrap">
+        <video id="result-video" controls playsinline></video>
+      </div>
+      <div class="result-actions">
+        <a class="btn-secondary" id="download-link" download="final_pitch.mp4">Download MP4</a>
+        <button type="button" class="btn-secondary" id="credits-btn">View credits</button>
+        <button type="button" class="btn-secondary" id="new-run-btn">New pitch</button>
+      </div>
+      <div class="credits-panel" id="credits-panel" hidden>
+        <h3>Credit usage</h3>
+        <table class="credits-table">
+          <thead>
+            <tr><th>Model</th><th>Type</th><th>Cost (USD)</th></tr>
+          </thead>
+          <tbody id="credits-body"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
